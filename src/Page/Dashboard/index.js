@@ -5,17 +5,16 @@ import Header from './Header';
 import List from './List';
 import Add from './Add';
 import Edit from './Edit';
-import {Navigate, useNavigate} from 'react-router-dom'
 
-
-import { employeesData } from '../../data';
+import { employeesData } from '../../data';            
 
 function Dashboard() {
-
+    let attendance=0
     const [employees, setEmployees] = useState(employeesData);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [isAdding, setIsAdding] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+
 
     const handleEdit = (id) => {
         const [employee] = employees.filter(employee => employee.id === id);
@@ -48,19 +47,26 @@ function Dashboard() {
             }
         });
     }
-    const markAttendance = (id) => {
-        //markthe employee as present and change it in state
-        // setSelectedEmployee(employee);
+
+    const markAttendance=(id)=>{
         let i;
-        const x = employees.find((e, index) => {
+        employees.find((e, index) => {
             if (e.id === id) {
                 i = index;
             }
+            return i
         })
         employees[i].isPresent = !employees[i].isPresent;
         let new_list = [...employees];
         setEmployees(new_list);
-    }
+         }
+         employees.forEach((employee)=>{
+            if(employee.isPresent){
+                attendance++;
+            }
+        })
+    
+        
     return (
         <div className='container'>
             {/* List */}
@@ -68,13 +74,13 @@ function Dashboard() {
                 <>
                     <Header
                         setIsAdding={setIsAdding}
+                        attendance = {attendance}
                     />
                     <List
                         employees={employees}
                         handleEdit={handleEdit}
                         handleDelete={handleDelete}
                         markAttendance={markAttendance}
-
                     />
                 </>
             )}
