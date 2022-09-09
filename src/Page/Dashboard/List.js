@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 
-function List({ employees, handleEdit, handleDelete, markAttendance}) {
+function List({ employees, handleEdit, handleDelete, markAttendance, mark}) {
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -72,4 +72,3 @@ function List({ employees, handleEdit, handleDelete, markAttendance}) {
 }
 
 export default List;
-
